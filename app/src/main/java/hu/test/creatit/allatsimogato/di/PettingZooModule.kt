@@ -19,9 +19,7 @@ object PettingZooModule {
 
     @Singleton
     @Provides
-    fun provideAuthRepository(
-        jsonParser: JsonParser
-    ): AuthRepository {
+    fun provideAuthRepository(): AuthRepository {
         return AuthRepositoryImpl(jsonParser = GsonParser(Gson()))
     }
 

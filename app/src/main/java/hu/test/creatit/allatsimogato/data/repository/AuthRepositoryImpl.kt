@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import hu.test.creatit.allatsimogato.data.dto.UserDto
+import hu.test.creatit.allatsimogato.data.dto.response.UserResponse
 import hu.test.creatit.allatsimogato.data.mapper.toUser
 import hu.test.creatit.allatsimogato.data.response.correctAuthJsonResponse
 import hu.test.creatit.allatsimogato.domain.model.User
@@ -30,8 +31,8 @@ class AuthRepositoryImpl(
 
         if(username == "user" && password == "pass") {
 
-            delay(3000)
-            val user = jsonParser.fromJson<UserDto>(correctAuthJsonResponse, UserDto::class.java)?.toUser()
+            delay(200)
+            val user = jsonParser.fromJson<UserResponse>(correctAuthJsonResponse, UserResponse::class.java)?.user?.toUser()
             if(user == null) {
                 emit(Resource.Error("Couldn't parse user"))
             } else {

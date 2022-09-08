@@ -1,16 +1,14 @@
 package hu.test.creatit.allatsimogato.domain.model
 
-import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
-
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.parcelize.Parceler
+import kotlinx.parcelize.Parcelize
+import java.time.ZonedDateTime
 
 data class User(
     val title: String,
     val id: Int,
-    val timeCreate: LocalDate,
-    val timeUpdate: LocalDate
+    val timeCreate: ZonedDateTime,
+    val timeUpdate: ZonedDateTime
 )
