@@ -5,4 +5,5 @@
     <string name="login">Login</string>
     <string name="petting_zoo">Petting Zoo</string>
     <string name="logout">Logout</string>
+    <string name="other_animals">Other animals</string>
 </resources>

@@ -1,15 +1,17 @@
 package hu.test.creatit.allatsimogato.di
 
+import android.content.Context
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import hu.test.creatit.allatsimogato.data.repository.AuthRepositoryImpl
 import hu.test.creatit.allatsimogato.domain.repository.AuthRepository
 import hu.test.creatit.allatsimogato.domain.use_case.LoginWithUsernamePasswordUseCase
 import hu.test.creatit.allatsimogato.util.GsonParser
-import hu.test.creatit.allatsimogato.util.JsonParser
+import hu.test.creatit.allatsimogato.util.network_status.NetworkStatusTracker
 import javax.inject.Singleton
 
 
@@ -28,5 +30,11 @@ object PettingZooModule {
     fun provideLoginWithUsernamePasswordUseCase(repository: AuthRepository)
             : LoginWithUsernamePasswordUseCase {
         return LoginWithUsernamePasswordUseCase(repository = repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNetworkStatusTracker(@ApplicationContext context: Context): NetworkStatusTracker {
+        return NetworkStatusTracker(context = context)
     }
 }

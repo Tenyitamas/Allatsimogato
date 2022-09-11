@@ -15,6 +15,8 @@ import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import hu.test.creatit.allatsimogato.navigation.Route
 import hu.test.creatit.allatsimogato.presentation.login.LoginScreen
+import hu.test.creatit.allatsimogato.presentation.other_animals.OtherAnimalsScreen
+import hu.test.creatit.allatsimogato.presentation.petting_zoo.PettingZooScreen
 import hu.test.creatit.allatsimogato.presentation.profile.ProfileScreen
 import hu.test.creatit.allatsimogato.ui.theme.AllatsimogatoTheme
 
@@ -76,9 +78,34 @@ class MainActivity : ComponentActivity() {
                                 onLogout = {
                                     navController.navigate(Route.LOGIN)
                                 },
-                                onGoToPettingZoo = {}
+                                onGoToOtherAnimals = {
+                                    navController.navigate(Route.OTHER_ANIMALS)
+                                },
+                                onGoToPettingZoo = {
+                                    navController.navigate(Route.PETTING_ZOO)
+                                }
                             )
                         }
+
+                        composable(Route.PETTING_ZOO) {
+                            PettingZooScreen(
+                                onGoBack = {
+                                    navController.popBackStack()
+                                },
+
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+
+                        composable(Route.OTHER_ANIMALS) {
+                            OtherAnimalsScreen(
+                                onGoBack = {
+                                    navController.popBackStack()
+                                },
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+
                     }
 
                 }

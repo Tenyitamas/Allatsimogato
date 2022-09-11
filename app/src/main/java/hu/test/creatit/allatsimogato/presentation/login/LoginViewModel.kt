@@ -8,7 +8,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hu.test.creatit.allatsimogato.domain.use_case.LoginWithUsernamePasswordUseCase
 import hu.test.creatit.allatsimogato.util.Resource
+import hu.test.creatit.allatsimogato.util.network_status.NetworkStatus
+import hu.test.creatit.allatsimogato.util.network_status.NetworkStatusTracker
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -17,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginWithUsernamePasswordUseCase: LoginWithUsernamePasswordUseCase
+    private val loginWithUsernamePasswordUseCase: LoginWithUsernamePasswordUseCase,
+    networkStatusTracker: NetworkStatusTracker
 ) : ViewModel() {
 
 
@@ -26,6 +30,31 @@ class LoginViewModel @Inject constructor(
 
     var state by mutableStateOf(LoginState())
         private set
+
+
+
+    init {
+        viewModelScope.launch {
+            networkStatusTracker.networkStatus
+                .collectLatest { status ->
+                    state = when(status) {
+                        NetworkStatus.Available -> {
+                            state.copy(
+                                loginButtonDisabled = false
+                            )
+                        }
+                        NetworkStatus.Unavailable -> {
+                            state.copy(
+                                loginButtonDisabled = true
+                            )
+                        }
+                    }
+                }
+        }
+    }
+
+
+
 
 
 

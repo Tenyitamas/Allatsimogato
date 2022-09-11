@@ -84,4 +84,7 @@ dependencies {
     implementation "io.coil-kt:coil-compose:$coilVersion"
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0"
+
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
+
 }
